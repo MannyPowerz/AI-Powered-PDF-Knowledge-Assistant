@@ -1,8 +1,16 @@
-const handlePdfUpload = async (req, res) => {
+const { handlePdfService } = require('../services/pdfService');
+const { chunkingService } = require('../services/chunkService');
+
+const uploadController = async (req, res, next) => {
     try {
         
-        // Here is where you'd call your future ervice
-       
+        if (!req.file || !req.file.buffer) {
+            return res.status(400).json({ error: "No PDF data received." });
+        }
+
+        // Call the service with ONLY the buffer
+        const pdfData = await handlePdfService(req.file.buffer);
+        const chunkedData = await chunkingService(pdfData.text)
         
         res.status(201).json({
             status: "Success",
@@ -10,8 +18,11 @@ const handlePdfUpload = async (req, res) => {
             filename: req.file.originalname
         });
     } catch (error) {
-        res.status(500).json({ error: "Internal Server Error during processing." });
+        if (error.message === 'PDF_PARSING_FAILED') {
+            return res.status(422).json({ error: "The PDF is corrupt or unreadable." });
+        }
+        next(error);
     }
 }
 
-module.exports = {handlePdfUpload} ;
+module.exports = {uploadController};
