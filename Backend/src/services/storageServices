@@ -1,0 +1,9 @@
+const lancedb = require("@lancedb/lancedb");
+
+const { DB_PATH } = require('../config/constants');
+
+const lance = async () => {
+    const db = await lancedb.connect(DB_PATH)
+
+    const table = await
+}

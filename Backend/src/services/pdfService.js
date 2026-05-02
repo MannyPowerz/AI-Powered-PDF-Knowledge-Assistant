@@ -1,6 +1,6 @@
 const pdf = require('pdf-parse');
 
-@param {Buffer} fileBuffer
+{Buffer} fileBuffer
 
 const handlePdfService = async (fileBuffer) => {
     // 1. Defend the function

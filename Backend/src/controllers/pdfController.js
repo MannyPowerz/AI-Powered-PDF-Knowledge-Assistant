@@ -1,5 +1,6 @@
 const { handlePdfService } = require('../services/pdfService');
 const { chunkingService } = require('../services/chunkService');
+const { vectorizeChunks } = require('../services/embeddingService');
 
 const uploadController = async (req, res, next) => {
     try {
@@ -10,7 +11,8 @@ const uploadController = async (req, res, next) => {
 
         // Call the service with ONLY the buffer
         const pdfData = await handlePdfService(req.file.buffer);
-        const chunkedData = await chunkingService(pdfData.text)
+        const chunkedData = await chunkingService(pdfData.text);
+        const embedding = await vectorizeChunks(chunkedData);
         
         res.status(201).json({
             status: "Success",
