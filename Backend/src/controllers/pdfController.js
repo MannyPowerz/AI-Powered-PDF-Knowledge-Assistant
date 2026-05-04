@@ -1,6 +1,7 @@
 const { handlePdfService } = require('../services/pdfService');
 const { chunkingService } = require('../services/chunkService');
 const { vectorizeChunks } = require('../services/embeddingService');
+const { lanceStorage } = require('../services/storageServices')
 
 const uploadController = async (req, res, next) => {
     try {
@@ -13,11 +14,13 @@ const uploadController = async (req, res, next) => {
         const pdfData = await handlePdfService(req.file.buffer);
         const chunkedData = await chunkingService(pdfData.text);
         const embedding = await vectorizeChunks(chunkedData);
+        const storage = await lanceStorage(embedding)
         
         res.status(201).json({
             status: "Success",
-            documentId: "stub-id-replace-later",
-            filename: req.file.originalname
+            rowsAdded: storage.rowsAdded,
+            filename: req.file.originalname,
+            table: storage.table
         });
     } catch (error) {
         if (error.message === 'PDF_PARSING_FAILED') {

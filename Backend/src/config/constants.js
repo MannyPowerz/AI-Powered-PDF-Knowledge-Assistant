@@ -2,7 +2,8 @@ module.exports = {
   // Chunking
   CHUNK_SIZE: 650,        
   CHUNK_OVERLAP: 100,     
-  BATCH_SIZE = 32,
+  BATCH_SIZE : 32,
+  TOP_K: 6,
 
   // Multer
   MAX_FILE_SIZE: 12 * 1024 * 1024,
@@ -16,4 +17,5 @@ module.exports = {
 
   // Embedding
   EMBEDDING_MODEL: 'BAAI/bge-m3',
+  DIMENSION: 1024
 };
