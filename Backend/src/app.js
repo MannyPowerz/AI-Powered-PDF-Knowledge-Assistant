@@ -3,6 +3,7 @@ const app = express();
 const cors = require('cors')
 
 const pdfRoute = require('./routes/pdfRoutes')
+const queryRoutes = require('./routes/queryRoutes')
 
 
 app.use(cors());

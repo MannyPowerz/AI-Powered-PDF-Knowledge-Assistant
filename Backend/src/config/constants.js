@@ -14,6 +14,7 @@ module.exports = {
 
   // Groq
   GROQ_MODEL: 'llama-3.3-70b',
+  TEMPERATURE: 0.1,
 
   // Embedding
   EMBEDDING_MODEL: 'BAAI/bge-m3',
