@@ -1,0 +1,60 @@
+const baseApiUrl = import.meta.env.VITE_API_BASE_URL;
+
+const sendPrompt = async (userInput) => {
+    try{
+        const response = await fetch(`${baseApiUrl}/api/query/prompt`,{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ question: userInput })          
+        })
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`)
+        }
+
+        const data = await response.json()
+        return data
+    } catch {
+        console.error('Error:', error)
+    }
+
+}
+
+const uploadPdf = async (selectedFile) => {
+    const allowedTypes = 'application/pdf'
+
+    if (selectedFile && allowedTypes.includes(selectedFile.type)) {
+        console.log('Valid PDF selected!');
+    } else {
+        alert('Please upload a valid file type: PDF');
+    }
+
+    // Use FormData to package the file
+    const formData = new FormData();
+    formData.append('document', selectedFile); 
+
+    try {
+        const response = await fetch(`${baseApiUrl}/api/pdf/upload`, {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await response.json()
+
+        if (response.ok) {
+            console.log('Upload successful:', result);
+        } else {
+            console.error('Upload failed:', result.error);
+        }
+
+        // The reset, so the change event fires next time
+        event.target.value = null;
+
+    } catch (error) {
+        console.error('Network error:', error)
+    }
+};
+
+export { sendPrompt, uploadPdf }
