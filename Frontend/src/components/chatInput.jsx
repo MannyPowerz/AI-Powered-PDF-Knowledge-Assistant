@@ -1,13 +1,9 @@
-// Notes 
-//  - only when something is typed in can a send button pop-up 
-
 import { useState, useRef  } from 'react';
-import { sendPrompt, uploadPdf } from  '../services/api';
+import { uploadPdf } from  '../services/api';
 
-const ChatInput = () => {
+const ChatInput = ({onSendMessage}) => {
 
     const [inputText, setInputText] = useState("");
-    const [loading, setLoading] = useState(null);
     const [fileSelected, setFileSelected] = useState(null)
     
     // Create a reference to the hidden input field
@@ -22,6 +18,11 @@ const ChatInput = () => {
         // Captures each keystroke and updates state
         setInputText(event.target.value);
     };
+
+    const handleSendMessage = (prompt) => {
+        onSendMessage(prompt)
+        setInputText("")
+    }
 
     const onFileUpload = (event) => {
         const selectedFile = event.target.files[0]
@@ -43,13 +44,15 @@ const ChatInput = () => {
                         src='../assets/clip.png'
                         width={24} 
                         height={24}
-                        alt='attatchment-icon'
+                        alt='paperclip-attatchment-icon'
                     />
                 </button>                
 
                 <input 
                     type='file'
                     onChange={onFileUpload}
+                    ref={fileInputRef}
+                    style={{ display: 'none' }}
                     accept='.pdf'
                 />
 
@@ -58,7 +61,7 @@ const ChatInput = () => {
             {/* Swap in the fancy PDF icon image later with "X" icon on the top right of image with file name hovering over it */}
             {fileSelected && (
                 <div>
-                    <span>{fileSelected.name}</span>
+                    <span>{fileSelected}</span>
                     <button onClick={() => setFileSelected(null)}>X</button>
                 </div>
             )}
@@ -78,7 +81,7 @@ const ChatInput = () => {
                 className='send-prompt-button'
             >
                 <button
-                    onClick={sendPrompt}>
+                    onClick={() => handleSendMessage(inputText)}>
                     <img
                         src='../assets/send.png'
                         width={24} 
@@ -92,3 +95,5 @@ const ChatInput = () => {
         </>
     )
 }
+
+export default ChatInput;

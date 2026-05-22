@@ -26,35 +26,39 @@ const uploadPdf = async (selectedFile) => {
     const allowedTypes = 'application/pdf'
 
     if (selectedFile && allowedTypes.includes(selectedFile.type)) {
+        
         console.log('Valid PDF selected!');
-    } else {
-        alert('Please upload a valid file type: PDF');
-    }
 
-    // Use FormData to package the file
-    const formData = new FormData();
-    formData.append('document', selectedFile); 
+        const formData = new FormData();
+        formData.append('document', selectedFile); 
+        
+        try {
+            const response = await fetch(`${baseApiUrl}/api/pdf/upload`, {
+                method: 'POST',
+                body: formData
+            });
 
-    try {
-        const response = await fetch(`${baseApiUrl}/api/pdf/upload`, {
-            method: 'POST',
-            body: formData
-        });
+            const result = await response.json()
 
-        const result = await response.json()
+            if (response.ok) {
+                console.log('Upload successful:', result);
+            } else {
+                console.error('Upload failed:', result.error);
+            }
 
-        if (response.ok) {
-            console.log('Upload successful:', result);
-        } else {
-            console.error('Upload failed:', result.error);
+            // The reset, so the change event fires next time
+            event.target.value = null;
+            
+
+        } catch (error) {
+            console.error('Network error:', error)
         }
 
-        // The reset, so the change event fires next time
-        event.target.value = null;
-
-    } catch (error) {
-        console.error('Network error:', error)
+    } else {
+        alert('Please upload a valid file type: PDF');
+        return
     }
+
 };
 
 export { sendPrompt, uploadPdf }
