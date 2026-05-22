@@ -1,4 +1,4 @@
-const ChatWindow = ({chatHistory}) => {
+const ChatWindow = ({chatHistory, spinner}) => {
 
     return (
         <>
@@ -6,6 +6,7 @@ const ChatWindow = ({chatHistory}) => {
                 className='chat-window'
             >
                 {chatHistory.map((message, index) => (
+                    
                     <div
                         
                         key={index}
@@ -19,8 +20,17 @@ const ChatWindow = ({chatHistory}) => {
                         {message.content}
 
                     </div>
-                        
+      
                 ))}
+
+                {spinner && (
+                    <div className="loading-spinner">
+
+                    </div>
+                )
+                
+                }
+
             </div>
         </>
 

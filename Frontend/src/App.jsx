@@ -6,7 +6,7 @@ import './App.css'
 
 function App() {
   const [messages, setMessages] = useState([]);
-  const [loading, setLoading] = useState(null);
+  const [loading, setLoading] = useState(false);
 
 
   
@@ -36,7 +36,7 @@ function App() {
 
   return (
     <>
-      <ChatWindow chatHistory={messages} />
+      <ChatWindow chatHistory={messages} spinner={loading}/>
       <ChatInput onSendMessage={handleSendMessage}/>
     </>
   )
