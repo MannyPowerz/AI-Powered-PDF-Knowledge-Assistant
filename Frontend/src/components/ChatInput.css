@@ -8,6 +8,19 @@
     border-radius: 24px;
 }
 
+.file-indicator{
+    position: relative
+}
+
+.file-name{
+    position: absolute;
+    overflow: hidden
+}
+
+.file-remove{
+    position: absolute
+}
+
 .text-input {
     flex: 1;
 

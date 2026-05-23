@@ -3,6 +3,7 @@ import { uploadPdf } from  '../services/api';
 
 import clipIcon from '../assets/clip.png';
 import sendIcon from '../assets/send.png';
+import pdfIcon from '../assets/pdf-icon.svg'
 
 import './ChatInput.css'
 
@@ -68,9 +69,27 @@ const ChatInput = ({onSendMessage}) => {
 
             {/* Swap in the fancy PDF icon image later with "X" icon on the top right of image with file name hovering over it */}
             {fileSelected && (
-                <div>
-                    <span>{fileSelected}</span>
-                    <button onClick={() => setFileSelected(null)}>X</button>
+                <div 
+                    className='file-indicator'
+                >
+                    <img
+                        src={pdfIcon}
+                        width={85}
+                        height={105}
+                        alt='pdf-icon-image'
+                    />
+                    <span 
+                        className='file-name'
+                    >
+                        {fileSelected}
+                    </span>
+
+                    <button 
+                        className='file-remove'
+                        onClick={() => setFileSelected(null)}
+                    >
+                        X
+                    </button>      
                 </div>
             )}
            
