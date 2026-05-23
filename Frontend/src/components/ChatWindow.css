@@ -1,0 +1,26 @@
+.chat-window{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow-y: auto
+}
+
+.user-message {
+    align-self: flex-end;
+    text-align: right;
+    margin: 10px 0;
+    padding: 10px 15px;
+    border-radius: 15px 15px 4px 15px;
+    max-width: 75%;
+    background-color: #97AAD8;
+    
+}
+
+.assistant-message {
+    align-self: flex-start;
+    text-align: left;
+    margin: 10px 0;
+    padding: 10px 15px;
+    color: #D6DDF0;
+    border-radius: 15px 15px 15px 4px;
+}

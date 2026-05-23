@@ -13,10 +13,10 @@ module.exports = {
   TABLE_NAME: 'pdf_vectors',
 
   // Groq
-  GROQ_MODEL: 'llama-3.3-70b',
+  GROQ_MODEL: 'llama-3.3-70b-versatile',
   TEMPERATURE: 0.1,
 
   // Embedding
-  EMBEDDING_MODEL: 'BAAI/bge-m3',
-  DIMENSION: 1024
+  EMBEDDING_MODEL: 'Xenova/all-MiniLM-L6-v2',
+  DIMENSION: 384
 };

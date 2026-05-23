@@ -15,6 +15,8 @@ const verifyPdfContent = (req, res, next) => {
   next(); // Everything is genuine, move to the route handler
 };
 
+module.exports = verifyPdfContent;
+
 // --- Usage in your route ---
 // app.post('/upload', upload.single('document'), verifyPdfContent, (req, res) => {
 //   res.send("File is a genuine PDF and safe to process.");

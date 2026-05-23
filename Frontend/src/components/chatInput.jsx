@@ -1,6 +1,11 @@
 import { useState, useRef  } from 'react';
 import { uploadPdf } from  '../services/api';
 
+import clipIcon from '../assets/clip.png';
+import sendIcon from '../assets/send.png';
+
+import './ChatInput.css'
+
 const ChatInput = ({onSendMessage}) => {
 
     const [inputText, setInputText] = useState("");
@@ -32,16 +37,19 @@ const ChatInput = ({onSendMessage}) => {
 
     
     return (
-        <>
+        <div
+            className='chat-input'
+        >
             <div
                 className='file-button'
             >
 
-                <button
+                <button className='paperclip-container'
                     onClick={handleFileButtonClick}
                 >
                     <img
-                        src='../assets/clip.png'
+                        className='paperclip-image'
+                        src={clipIcon}
                         width={24} 
                         height={24}
                         alt='paperclip-attatchment-icon'
@@ -83,7 +91,7 @@ const ChatInput = ({onSendMessage}) => {
                 <button
                     onClick={() => handleSendMessage(inputText)}>
                     <img
-                        src='../assets/send.png'
+                        src={sendIcon}
                         width={24} 
                         height={24}
                         alt='send-icon'
@@ -92,7 +100,7 @@ const ChatInput = ({onSendMessage}) => {
             </div>
             
             
-        </>
+        </div>
     )
 }
 

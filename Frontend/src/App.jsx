@@ -35,10 +35,13 @@ function App() {
   }
 
   return (
-    <>
+    <div
+      className='container'
+    >
       <ChatWindow chatHistory={messages} spinner={loading}/>
       <ChatInput onSendMessage={handleSendMessage}/>
-    </>
+
+    </div>
   )
 }
 
