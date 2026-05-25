@@ -7,6 +7,7 @@ import './App.css'
 function App() {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
+  
 
 
   
@@ -22,15 +23,20 @@ function App() {
     ])
   
     const response = await sendPrompt(prompt);
-   
-    setMessages(prev => [...prev, 
-      {
-        role: 'assistant',
-        content: response.answer
-      }
-    ])
-  
 
+    if (response.success) {
+      setMessages(prev => [...prev,
+        { 
+          role: 'assistant',
+          content: response.answer 
+        }]);
+    } 
+    else {
+      setMessages(prev => [...prev,
+        { role: 'assistant',
+          content: response.error
+        }]);
+    }
     setLoading(false)
   }
 

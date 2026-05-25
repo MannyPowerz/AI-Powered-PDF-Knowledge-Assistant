@@ -15,9 +15,18 @@ const sendPrompt = async (userInput) => {
         }
 
         const data = await response.json()
-        return data
+        
+        return {
+            success: true, 
+            answer: data.answer
+        };
+        
     } catch {
         console.error('Error:', error)
+        return { 
+            success: false,
+            error: 'Server error' 
+        };
     }
 
 }
@@ -42,8 +51,10 @@ const uploadPdf = async (selectedFile) => {
 
             if (response.ok) {
                 console.log('Upload successful:', result);
+                return { success: true, data: result };
             } else {
                 console.error('Upload failed:', result.error);
+                return { success: false, error: result.error };
             }
 
             // The reset, so the change event fires next time
@@ -52,6 +63,7 @@ const uploadPdf = async (selectedFile) => {
 
         } catch (error) {
             console.error('Network error:', error)
+            return { success: false, error: 'Network error' };
         }
 
     } else {

@@ -28,6 +28,12 @@ const lanceStorage = async (embeddedData) => {
 
 const searchVectors  = async (queryVector) => {
     const db = await lancedb.connect(DB_PATH);
+    const tables = await db.tableNames();
+
+    if (!tables.includes(TABLE_NAME)) {
+        throw new Error('NO_PDF_UPLOADED');
+    }
+
     const table = await db.openTable(TABLE_NAME);
     const results = await table.search(queryVector).limit(TOP_K).toArray();
     return results

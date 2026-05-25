@@ -26,14 +26,26 @@ const ChatInput = ({onSendMessage}) => {
     };
 
     const handleSendMessage = (prompt) => {
+        if (!prompt.trim()) {
+            return
+        }
         onSendMessage(prompt)
         setInputText("")
     }
 
-    const onFileUpload = (event) => {
+    const onFileUpload = async (event) => {
         const selectedFile = event.target.files[0]
-        uploadPdf(selectedFile)
-        setFileSelected(selectedFile.name)
+        const result = await uploadPdf(selectedFile)
+        event.target.value = null;
+
+        if (result.success) {
+            setFileSelected(selectedFile.name)
+        } 
+
+        else {
+            alert(result.error)
+        }
+
     };
 
     

@@ -45,6 +45,11 @@ const answerPrompt = async (query) => {
 
     }
     catch (error) {
+        
+        if (error.message === 'NO_PDF_UPLOADED') {
+            return "Please upload a PDF before asking questions.";
+        }
+
         console.error('Error within QueryService processing:', error);
         throw new Error(`Query pipeline failed: ${error.message}`);
     }
